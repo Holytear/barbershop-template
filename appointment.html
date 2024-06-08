@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking with Ercan İncirkuş</title>
+    <link rel="stylesheet" href="appointment.css">
+    <script>
+        async function bookAppointment(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            const response = await fetch('/book-appointment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    service: formData.get('service'),
+                    date: formData.get('date'),
+                    time: formData.get('time'),
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    notes: formData.get('notes'),
+                }),
+            });
+
+            const result = await response.text();
+            alert(result);
+        }
+    </script>
+</head>
+<body>
+    <div class="appointment-form">
+        <h1>Book an Appointment</h1>
+        <form onsubmit="bookAppointment(event)">
+            <label for="service">Choose Your Service:</label>
+            <select id="service" name="service" required>
+                <option value="haircut">Haircut</option>
+                <option value="beard_trim">Beard Trim</option>
+                <option value="full_grooming">Full Grooming Package</option>
+                <option value="childrens_haircut">Children's Haircut</option>
+                <option value="hair_coloring">Hair Coloring</option>
+                <option value="other">Other Services</option>
+            </select>
+
+            <label for="date">Pick a Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Pick a Time:</label>
+            <select id="time" name="time" required>
+                <option value="07:30">07:30</option>
+                <option value="08:00">08:00</option>
+                <option value="08:30">08:30</option>
+                <option value="09:00">09:00</option>
+                <option value="09:30">09:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+            </select>
+
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes"></textarea>
+
+            <button type="submit">Confirm Your Appointment</button>
+        </form>
+    </div>
+</body>
+</html>
